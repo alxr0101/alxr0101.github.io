@@ -2,11 +2,11 @@
 <html>
 <head>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <title>DSM 7 - Activate Business Backup</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>DSM 7 - Activate Business Backup</title>
 </head>
 <body>
-  <h2>Synology - Generate activation links for Active Backup for Business</h2><!--
+    <h2>Synology - Generate activation links for Active Backup for Business</h2><!--
 
 SYNOLOGY - Active Backup for Business (DSM7)
 
@@ -16,45 +16,89 @@ Enter all values and click GET LINKS
 In an incognito tab, paste the LOGIN LINK first and enter to establish session. Then paste the ACTIVATE link into same address bar and hit enter to complete the activation.
 
 -->
-  <p>HTTP type :- <input id="http_type" value="http://"></p>
-  <p>IP Server:- <input id="ip_server" value="192.168.88.96"></p>
-  <p>PORT:-<input id="port" value="5000"></p>
-  <p>USERNAME:-<input id="username" value="admin"></p>
-  <p>Password:-<input id="passwd" value="passtest"></p>
-  <p>Serial Number of NAS<input id="serialnum" value="ABC123"></p>
-  <p></p>
-  <p><input type="button" value="Get Links" id="newUser"></p>
-  <p>Copy this LOGIN link :- <input id="url4login" value="awaiting link" size="140"></p>
-  <p>Copy this ACTIVATION link :- <input id="url4activate" value="awaiting link" size="140"></p>
-  <script>
-  $('#newUser').click(function() {
-    http_type = $("#http_type").val();
-    ip_server = $("#ip_server").val();
-    port = $("#port").val();
-    username = $("#username").val();
-    passwd = $("#passwd").val();
-    serialnum = $("#serialnum").val();
+    <p>HTTP type :- <input id="http_type" value="http://"></p>
+    <p>IP Server:- <input id="ip_server" value="192.168.88.96"></p>
+    <p>PORT:-<input id="port" value="5000"></p>
+    <p>USERNAME:-<input id="username" value="admin"></p>
+    <p>Password:-<input id="passwd" value="passtest"></p>
+    <p>Serial Number of NAS<input id="serialnum" value="ABC123"></p>
+    <p></p>
+    <p><input type="button" value="Get Links" id="newUser"></p>
 
-    let url_login = "/webapi/auth.cgi?api=SYNO.API.Auth&version=3&method=login&format=%20cookie&account=";
-    let url_activate = "/webapi/entry.cgi?api=SYNO.ActiveBackup.Activation&method=set&version=1&activated=true&serial_number=";
-    let url_pass = "&passwd=";
+    <p>   <button onclick="myFunction1()" >Copy text</button>  <input id="url4login" value="awaiting link" size="140"></p>
 
-    url_start = http_type + ip_server + ":" + port;
 
-    url4login = url_start + url_login + username + url_pass + passwd;
+    <p> <button onclick="myFunction2()" >Copy text</button> <input id="url4activate" value="awaiting link" size="140"></p>
 
-    $("#url4login").val(url4login);
-    console.log(url4login);
-    // alert(url4login);
 
-    url4activate = url_start + url_activate + serialnum;
+    <script>
+    $('#newUser').click(function() {
+        http_type = $("#http_type").val();
+        ip_server = $("#ip_server").val();
+        port = $("#port").val();
+        username = $("#username").val();
+        passwd = $("#passwd").val();
+        serialnum = $("#serialnum").val();
 
-    $("#url4activate").val(url4activate);
-    console.log(url4activate);
-    //alert(url4activate);
+        let url_login = "/webapi/auth.cgi?api=SYNO.API.Auth&version=3&method=login&format=%20cookie&account=";
+        let url_activate = "/webapi/entry.cgi?api=SYNO.ActiveBackup.Activation&method=set&version=1&activated=true&serial_number=";
+        let url_pass = "&passwd=";
 
-  });
+        url_start = http_type + ip_server + ":" + port;
 
-  </script>
+        url4login = url_start + url_login + username + url_pass + passwd;
+
+        $("#url4login").val(url4login);
+        console.log(url4login);
+        // alert(url4login);
+
+        url4activate = url_start + url_activate + serialnum;
+
+        $("#url4activate").val(url4activate);
+        console.log(url4activate);
+        //alert(url4activate);
+
+    });
+
+    </script>
+
+    <script>
+function myFunction1() {
+
+    var copyText = document.getElementById("url4login");
+
+
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+
+
+    navigator.clipboard.writeText(copyText.value);
+
+
+    alert("Copied the Login link: " + copyText.value);
+}
+
+</script>
+
+<script>
+
+function myFunction2() {
+    // Get the text field
+    var copyText = document.getElementById("url4activate");
+
+    // Select the text field
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); // For mobile devices
+
+    // Copy the text inside the text field
+    navigator.clipboard.writeText(copyText.value);
+
+    // Alert the copied text
+    alert("Copied the Activation link: " + copyText.value);
+}
+
+
+</script>
+
 </body>
 </html>
