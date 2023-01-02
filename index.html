@@ -3,6 +3,13 @@
 <head>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+ 
+
+<script src="https://cdn.statically.io/gh/zenorocha/clipboard.js/v2.0.10/dist/clipboard.min.js"></script>
+
+
+
     <title>DSM 7 - Activate Business Backup</title>
 </head>
 <body>
@@ -24,13 +31,37 @@ In an incognito tab, paste the LOGIN LINK first and enter to establish session. 
     <p>SERIAL NUMBER from NAS Control Panel "Info Center" :- <input id="serialnum" value="ABC123"></p>
     <p></p>
     <p>.. Step 1 <input type="button" value="Get Links" id="newUser"></p>
-	
-	<p>Next two steps, open a NEW INCOGNITO WINDOW and paste </p>
+    
+    <p>Next two steps, open a NEW INCOGNITO WINDOW and paste </p>
 
-    <p>.... Step 2 Login link  <button onclick="myFunction1()" >Copy text</button>  <input id="url4login" value="awaiting link" size="140"></p>
+    <p>.... Step 2 Login link :- 
+    <button
+      class="btn"
+      data-clipboard-action="copy"
+      data-clipboard-target="#url4login"
+    >
+      Copy
+    </button>
+    <input id="url4login" type="text" value="awaiting link" size="140"/>
+    
+    </p>
 
+    
+    <p>......  Step 3 Activation link
 
-    <p>......  Step 3 Activation link  <button onclick="myFunction2()" >Copy text</button> <input id="url4activate" value="awaiting link" size="140"></p>
+    <button
+      class="btn"
+      data-clipboard-action="copy"
+      data-clipboard-target="#url4activate"
+    >
+      Copy
+    </button>
+    <input id="url4activate" type="text" value="awaiting link" size="140"/>
+    
+    </p>  
+
+    
+
 
 
     <script>
@@ -65,42 +96,21 @@ In an incognito tab, paste the LOGIN LINK first and enter to establish session. 
     </script>
 
     <script>
-function myFunction1() {
+      var clipboard = new ClipboardJS('.btn');
 
-    var copyText = document.getElementById("url4login");
+      clipboard.on('success', function (e) {
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+      });
 
+      clipboard.on('error', function (e) {
+        console.log(e);
+      });
+    </script>
 
-    copyText.select();
-    copyText.setSelectionRange(0, 99999);
+     
 
-
-    navigator.clipboard.writeText(copyText.value);
-
-
-    alert("Copied the Login link: " + copyText.value);
-}
-
-</script>
-
-<script>
-
-function myFunction2() {
-    // Get the text field
-    var copyText = document.getElementById("url4activate");
-
-    // Select the text field
-    copyText.select();
-    copyText.setSelectionRange(0, 99999); // For mobile devices
-
-    // Copy the text inside the text field
-    navigator.clipboard.writeText(copyText.value);
-
-    // Alert the copied text
-    alert("Copied the Activation link: " + copyText.value);
-}
-
-
-</script>
 
 </body>
 </html>
