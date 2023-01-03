@@ -13,27 +13,104 @@
     <title>DSM 7 - Activate Business Backup</title>
 </head>
 <body>
+    <h2>Synology - Generate activation links for Active Backup for Business</h2><!--
 
-<h2 style="text-align: center;">Synology - Generate activation links for Active Backup for Business</h2>
-<!--
-            SYNOLOGY - Active Backup for Business (DSM7)
-            
-            Activation Steps
-            
-            Enter all values and click GET LINKS
-            In an incognito tab, paste the LOGIN LINK first and enter to establish session. Then paste the ACTIVATE link into same address bar and hit enter to complete the activation.
-            
-            -->
-<p style="padding-left: 30px;">HTTP type :- <input id="http_type" type="text" value="http://" /></p>
-<p style="padding-left: 30px;">IP Server:- <input id="ip_server" type="text" value="192.168.88.96" /></p>
-<p style="padding-left: 30px;">PORT:- <input id="port" type="text" value="5000" /></p>
-<p style="padding-left: 30px;">USERNAME:- <input id="username" type="text" value="admin" /></p>
-<p style="padding-left: 30px;">PASSWORD:- <input id="passwd" type="text" value="passtest" /></p>
-<p style="padding-left: 30px;">SERIAL NUMBER from NAS Control Panel "Info Center" :- <input id="serialnum" type="text" value="ABC123" /></p>
-<p style="padding-left: 90px;">&nbsp;</p>
-<p style="padding-left: 60px;">..<strong> Step 1 click to generate...</strong>&nbsp;<input id="newUser" type="button" value="Get Links" /></p>
-<p style="padding-left: 60px;">Next two steps, open a <strong>NEW INCOGNITO WINDOW</strong> and paste IN ORDER (IN THE SAME ADDRESS BAR)</p>
-<p style="padding-left: 60px;">....<strong> Step 2</strong> Login link :- <button class="btn" data-clipboard-action="copy" data-clipboard-target="#url4login"> Copy </button> <input id="url4login" size="140" type="text" value="awaiting link" /></p>
-<p style="padding-left: 60px;">...... <strong>Step 3</strong> Activation link <button class="btn" data-clipboard-action="copy" data-clipboard-target="#url4activate"> Copy </button> <input id="url4activate" size="140" type="text" value="awaiting link" /></p>
+SYNOLOGY - Active Backup for Business (DSM7)
+
+Activation Steps
+
+Enter all values and click GET LINKS
+In an incognito tab, paste the LOGIN LINK first and enter to establish session. Then paste the ACTIVATE link into same address bar and hit enter to complete the activation.
+
+-->
+    <p>HTTP type :- <input id="http_type" value="http://"></p>
+    <p>IP Server:- <input id="ip_server" value="192.168.88.96"></p>
+    <p>PORT:- <input id="port" value="5000"></p>
+    <p>USERNAME:- <input id="username" value="admin"></p>
+    <p>PASSWORD:- <input id="passwd" value="passtest"></p>
+    <p>SERIAL NUMBER from NAS Control Panel "Info Center" :- <input id="serialnum" value="ABC123"></p>
+    <p></p>
+    <p>.. Step 1 <input type="button" value="Get Links" id="newUser"></p>
+    
+    <p>Next two steps, open a NEW INCOGNITO WINDOW and paste IN ORDER (IN THE SAME ADDRESS BAR) </p>
+
+    <p>.... Step 2 Login link :- 
+    <button
+      class="btn"
+      data-clipboard-action="copy"
+      data-clipboard-target="#url4login"
+    >
+      Copy
+    </button>
+    <input id="url4login" type="text" value="awaiting link" size="140"/>
+    
+    </p>
+
+    
+    <p>......  Step 3 Activation link
+
+    <button
+      class="btn"
+      data-clipboard-action="copy"
+      data-clipboard-target="#url4activate"
+    >
+      Copy
+    </button>
+    <input id="url4activate" type="text" value="awaiting link" size="140"/>
+    
+    </p>  
+
+    
+
+
+
+    <script>
+    $('#newUser').click(function() {
+        http_type = $("#http_type").val();
+        ip_server = $("#ip_server").val();
+        port = $("#port").val();
+        username = $("#username").val();
+        passwd = $("#passwd").val();
+        serialnum = $("#serialnum").val();
+
+        let url_login = "/webapi/auth.cgi?api=SYNO.API.Auth&version=3&method=login&format=%20cookie&account=";
+        let url_activate = "/webapi/entry.cgi?api=SYNO.ActiveBackup.Activation&method=set&version=1&activated=true&serial_number=";
+        let url_pass = "&passwd=";
+
+        url_start = http_type + ip_server + ":" + port;
+
+        url4login = url_start + url_login + username + url_pass + passwd;
+
+        $("#url4login").val(url4login);
+        console.log(url4login);
+        // alert(url4login);
+
+        url4activate = url_start + url_activate + serialnum;
+
+        $("#url4activate").val(url4activate);
+        console.log(url4activate);
+        //alert(url4activate);
+
+    });
+
+    </script>
+
+    <script>
+      var clipboard = new ClipboardJS('.btn');
+
+      clipboard.on('success', function (e) {
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+      });
+
+      clipboard.on('error', function (e) {
+        console.log(e);
+      });
+    </script>
+
+     
+
+
 </body>
 </html>
