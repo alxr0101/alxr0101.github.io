@@ -75,8 +75,8 @@ In an incognito tab, paste the LOGIN LINK first and enter to establish session. 
         http_type = $("#http_type").val();
         ip_server = $("#ip_server").val();
         port = $("#port").val();
-        username = $("#username").val();
-        passwd = $("#passwd").val();
+        username = encodeURI($("#username").val());
+        passwd = encodeURI($("#passwd").val());
         serialnum = $("#serialnum").val();
 
         let url_login = "/webapi/auth.cgi?api=SYNO.API.Auth&version=3&method=login&format=%20cookie&account=";
