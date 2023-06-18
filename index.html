@@ -35,8 +35,10 @@
     <p>PORT:- <input id="port" value="5000"></p>
     <p>USERNAME:- <input id="username" value="admin"></p>
     <p>PASSWORD:- <input id="passwd" value="passtest"></p>
+    <p>2FA One Time Code (leave BLANK if no 2FA enabled):- <input id="otp_code" value=""></p>
+     
 
-    <STRONG><br>Temporarily SET A SIMPLE PASSWORD and DISABLE any 2FA if response does not end in "success":true"  at step 2.</br></STRONG>
+    <STRONG><br>Temporarily SET A SIMPLE PASSWORD if response does not end in "success":true"  at step 2.</br></STRONG>
     <p>SERIAL NUMBER from NAS Control Panel "Info Center" :- <input id="serialnum" value="ABC123"></p>
     <p></p>
     <p>.. <strong>Step 1 <input type="button" value="Get Links" id="newUser"></strong></p>
@@ -114,6 +116,7 @@
         port = $("#port").val();
         username = encodeURI($("#username").val());
         passwd = encodeURI($("#passwd").val());
+        otp_code = $("#otp_code").val();
         serialnum = $("#serialnum").val();
 
         let url_login = "/webapi/auth.cgi?api=SYNO.API.Auth&version=3&method=login&format=%20cookie&account=";
@@ -124,10 +127,14 @@
         let url_activateOffice365="/webapi/entry.cgi?api=SYNO.ActiveBackupOffice365&method=set_activation&version=1&serial_number=";
 
         let url_pass = "&passwd=";
+        let url_otp  = "&otp_code=";
 
         url_start = http_type + ip_server + ":" + port;
 
-        url4login = url_start + url_login + username + url_pass + passwd;
+        url4login = url_start + url_login + username + url_pass + passwd + url_otp + otp_code;
+
+        
+
 
         $("#url4login").val(url4login);
         console.log(url4login);
