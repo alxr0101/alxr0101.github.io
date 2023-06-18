@@ -17,15 +17,15 @@
 <div style="width:800px; margin:0 auto;">
 
 
-    <h2>Synology - Generate activation links for Active Backup for Business</h2>
+    <h2>Synology - Generate activation links for Active Backup for Business/GSuite/Office365</h2>
     
-    <p> SYNOLOGY - Active Backup for Business (DSM7) </p>
+    <p> SYNOLOGY - Active Backup for ... (DSM6 and 7) </p>
 
     <p>Activation Steps</p>
 
     <p>Enter all values and click GET LINKS</p>
 <p>In an incognito tab, paste the LOGIN LINK first and enter to establish session. <br>
-    Then paste the ACTIVATE link into same address bar and hit enter to complete the activation.
+    Then paste the selected ACTIVATION link into same address bar and hit enter to complete the activation. REPEAT for any other installed application.
 
     </p>
     <br>
@@ -39,11 +39,11 @@
     <STRONG><br>Temporarily SET A SIMPLE PASSWORD and DISABLE any 2FA if response does not end in "success":true"  at step 2.</br></STRONG>
     <p>SERIAL NUMBER from NAS Control Panel "Info Center" :- <input id="serialnum" value="ABC123"></p>
     <p></p>
-    <p>.. Step 1 <input type="button" value="Get Links" id="newUser"></p>
+    <p>.. <strong>Step 1 <input type="button" value="Get Links" id="newUser"></strong></p>
     
-    <p>Next two steps, open a NEW INCOGNITO WINDOW and paste IN ORDER (IN THE SAME ADDRESS BAR) </p>
+    <p>Next two steps, open a NEW INCOGNITO WINDOW and paste IN ORDER (IN THE SAME ADDRESS BAR)-- <br>COPY the Application you need to activate </p>
 
-    <p>.... Step 2 Login link :- 
+    <p>.... <strong>Step 2 Login link</strong>
     <button
       class="btn"
       data-clipboard-action="copy"
@@ -56,18 +56,50 @@
     </p>
 
     
-    <p>......  Step 3 Activation link
+    <p>......  <strong>Step 3 Activation link</strong>
 
+     </p>
+     
+     <p>
+
+     
     <button
       class="btn"
       data-clipboard-action="copy"
       data-clipboard-target="#url4activate"
     >
-      Copy
+      Copy for ActiveBackup for Business
     </button>
     <input id="url4activate" type="text" value="awaiting link" size="140"/>
     
     </p>  
+
+    <p>
+      <button
+      class="btn"
+      data-clipboard-action="copy"
+      data-clipboard-target="#url4activateGSuite"
+    >
+      Copy for GSuite
+    </button>
+    <input id="url4activateGSuite" type="text" value="awaiting link" size="140"/>
+    
+    </p> 
+
+    <p>
+      <button
+      class="btn"
+      data-clipboard-action="copy"
+      data-clipboard-target="#url4activateOffice365"
+    >
+      Copy for Office365
+    </button>
+    <input id="url4activateOffice365" type="text" value="awaiting link" size="140"/>
+    
+    </p> 
+
+
+    </p>
 
     
  </div>
@@ -86,6 +118,11 @@
 
         let url_login = "/webapi/auth.cgi?api=SYNO.API.Auth&version=3&method=login&format=%20cookie&account=";
         let url_activate = "/webapi/entry.cgi?api=SYNO.ActiveBackup.Activation&method=set&version=1&activated=true&serial_number=";
+
+        let url_activateGSuite="/webapi/entry.cgi?api=SYNO.ActiveBackupGSuite&method=set_activation&version=1&serial_number=";
+
+        let url_activateOffice365="/webapi/entry.cgi?api=SYNO.ActiveBackupOffice365&method=set_activation&version=1&serial_number=";
+
         let url_pass = "&passwd=";
 
         url_start = http_type + ip_server + ":" + port;
@@ -97,10 +134,28 @@
         alert("Press COPY then paste each, in order, into a new browser INCOGNITO WINDOW address bar");
 
         url4activate = url_start + url_activate + serialnum;
+        url4activateGSuite = url_start + url_activateGSuite + serialnum;
+        url4activateOffice365 = url_start + url_activateOffice365 + serialnum;
 
         $("#url4activate").val(url4activate);
         console.log(url4activate);
         //alert(url4activate);
+
+        url4activate = url_start + url_activate + serialnum;
+
+
+
+$("#url4activateGSuite").val(url4activateGSuite);
+console.log(url4activateGSuite);
+//alert(url4activateGSuite);
+
+url4activateGSuite = url_start + url_activate + serialnum;
+
+$("#url4activateOffice365").val(url4activateOffice365);
+console.log(url4activateOffice365);
+//alert(url4activateOffice365);
+
+
 
     });
 
